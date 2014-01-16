@@ -8,52 +8,16 @@ public class Position {
     /* Grid for chess squares of the form [row][col] where bottom left (with white on bottom) is
     [0][0] and top right is [7][7] */
 
-    private Piece[][] squares = new Piece[7][7];
+    private Piece[][] squares = new Piece[Chessboard.NUM_ROWS][Chessboard.NUM_COLS];
 
     public enum Piece {
+        EMPTY,
         WKING, WQUEEN, WROOK, WBISHOP, WKNIGHT, WPAWN,
-        BKING, BQUEEN, BROOK, BBISHOP, BKNIGHT, BPAWN,
-        EMPTY;
-
-        /* Returns the letter that corresponds to the appropriate piece in the ChessCases.ttf
-        font. */
-        public char getFontLetter1() {
-            switch(this) {
-                case WKING:     return 'H';
-                case WQUEEN:    return 'I';
-                case WROOK:     return 'J';
-                case WBISHOP:   return 'K';
-                case WKNIGHT:   return 'L';
-                case WPAWN:     return 'M';
-                case BKING:     return 'N';
-                case BQUEEN:    return 'O';
-                case BROOK:     return 'P';
-                case BBISHOP:   return 'Q';
-                case BKNIGHT:   return 'R';
-                case BPAWN:     return 'S';
-                default:        return ' ';
-            }
-        }
-
-        public char getFontLetter2() {
-            switch(this) {
-                case WKING:     return 'k';
-                case BKING:     return 'l';
-                case WQUEEN:    return 'm';
-                case BQUEEN:    return 'n';
-                case WROOK:     return 'o';
-                case BROOK:     return 'p';
-                case WBISHOP:   return 'q';
-                case BBISHOP:   return 'r';
-                case WKNIGHT:   return 's';
-                case BKNIGHT:   return 't';
-                case WPAWN:     return 'u';
-                case BPAWN:     return 'v';
-                default:        return ' ';
-            }
-        }
+        BKING, BQUEEN, BROOK, BBISHOP, BKNIGHT, BPAWN;
     }
 
+    /* Puts the board in a valid starting position with white on the bottom. (0, 0) is the
+    lower-left square on the board and (7, 7) is the square on the upper-right. */
     public void initialize() {
 
         // Remove all pieces
@@ -85,6 +49,12 @@ public class Position {
         addPiece(7, 5, Piece.BBISHOP);
         addPiece(7, 6, Piece.BKNIGHT);
         addPiece(7, 7, Piece.BROOK);
+    }
+
+    /* Returns the piece at the specified position on the board. (0, 0) is the lower-left
+    square on the board and (7, 7) is the square on the upper-right. */
+    public Piece getPiece(int row, int col) {
+       return squares[row][col];
     }
 
     /* Adds the specified piece to the specified square location.  The square's piece value before
